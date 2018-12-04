@@ -1,11 +1,6 @@
-public class Main{
-
-  public static void print(String string){
-    System.out.println(string);
-  }
-
-  public static void main(String[] args){
-    String sentence = "Dominus vitae necisque";
+public class Intro{
+    public static void main(String[] args){
+        String sentence = "Dominus vitae necisque";
 
         String[] words = sentence.split(" ");
         for (int i = 0; i < words.length; i++) {
@@ -20,5 +15,5 @@ public class Main{
         if(sentence.contains("c")){
             System.out.println("Yes it has C!");
         }
-  }
+    }
 }

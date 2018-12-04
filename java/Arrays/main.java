@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class main{
+public class Main{
 
     public static int[] generateArray(int size, int min, int max){
         int newArray[] = new int[size];
