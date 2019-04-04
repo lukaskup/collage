@@ -2,21 +2,18 @@ public class GUI0205 {
     public static void main(String[] args)
     {
         Spiewak s1 = new Spiewak("Carrey"){
-            @Override
             String spiewaj(){
                 return "oooooooo";
             }
         };
 
         Spiewak s2 = new Spiewak("Houston"){
-            @Override
             String spiewaj(){
                 return "a4iBBiii";
             }
         };
 
         Spiewak s3 = new Spiewak("Madonna"){
-            @Override
             String spiewaj(){
                 return "aAa";
             }
@@ -45,7 +42,6 @@ abstract class Spiewak{
 
     public static Spiewak najglosniej(Spiewak[] sp){
         Spiewak spiewak = new Spiewak("test"){
-            @Override
             String spiewaj(){
                 return "0";
             }
