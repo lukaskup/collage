@@ -22,8 +22,15 @@ public class Main {
             }
         });
 
+        Thread timer = new Thread();
+        timer.start();
         producerThread.start();
         consumerThread.start();
+        timer.sleep(15000);
+        System.out.println("Thread stopped");
+        producerThread.stop();
+        consumerThread.stop();
+        timer.stop();
     }
     static class Buffer {
         private Queue<Integer> list;
