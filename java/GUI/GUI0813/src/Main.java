@@ -1,7 +1,8 @@
 import java.awt.*;
 import javax.swing.*;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class Main {
 
@@ -45,6 +46,26 @@ class MyPanel
         setPreferredSize(new Dimension(600,600));
     }
 
+    public static boolean isInteger(String s) {
+        try {
+            Integer.parseInt(s);
+        } catch(NumberFormatException e) {
+            return false;
+        } catch(NullPointerException e) {
+            return false;
+        }
+        // only got here if we didn't return false
+        return true;
+    }
+
+    public static int randInt(int min, int max) {
+
+        Random rand = new Random();
+
+        int randomNum = rand.nextInt((max - min) + 1) + min;
+
+        return randomNum;
+    }
 
     public void paintComponent(Graphics g)
     {
@@ -53,21 +74,35 @@ class MyPanel
         int width = getWidth();
         int height = getHeight();
 
-        File file = new File("C:\\Users\\lukasz\\Desktop\\collage\\java\\GUI\\GUI0813\\src\\plik.txt");
+        List fileLines = ReadFile.getFileContent("C:/Users/lukasz/Desktop/collage/java/GUI/GUI0813/src/plik.txt", false);
 
-        BufferedReader br = new BufferedReader(new FileReader(file));
+        for(int i = 0; i < fileLines.size(); i++) {
 
-        String st;
-        while ((st = br.readLine()) != null) {
-            g.drawString("chuj", 30, 30);
+            String[] values = fileLines.get(i).toString().split(" ");
+            if(values.length < 5){
+                int[] drawValues = new int[values.length];
+                Boolean isValid = true;
+                for(int i2 = 0; i2 < values.length; i2++){
+                    if(isInteger(values[i2])){
+                        drawValues[i2] = Integer.parseInt(values[i2]);
+                    }else{
+                        isValid = false;
+                    }
+                }
+
+                if(isValid){
+                    g.setColor(new Color(this.randInt(0, 255), this.randInt(0, 255), this.randInt(0, 255)));
+
+                    if(drawValues.length == 3){
+                        g.drawOval(drawValues[0],drawValues[1],drawValues[2],drawValues[2]);
+                    }else if(drawValues.length == 4){
+                        g.drawLine(drawValues[0], drawValues[1], drawValues[2], drawValues[1]);
+                        g.drawLine(drawValues[2], drawValues[1], drawValues[2], drawValues[3]);
+                        g.drawLine(drawValues[2], drawValues[3], drawValues[0], drawValues[3]);
+                        g.drawLine(drawValues[0], drawValues[3], drawValues[0], drawValues[1]);
+                    }
+                }
+            }
         }
     }
-
-//        g.setColor(new Color(255, 0 ,0));
-//        g.fillOval(150, 150, 300, 300);
-//
-//        g.setColor(new Color(255, 255 ,255));
-//
-//        g.fillArc(170, 170, 260, 260, 0, 180);
-
 }
