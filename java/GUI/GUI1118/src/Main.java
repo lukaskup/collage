@@ -59,33 +59,33 @@ class MyPanel extends JPanel {
         cons_label.weightx = 0.0;
         cons_label.gridx = 0;
         cons_label.gridy = 0;
-
         JLabel label = new JLabel("");
         label.setHorizontalAlignment(SwingConstants.CENTER);
 
         JTextField input1 = new JTextField();
+        input1.setToolTipText("Enter A");
+        input1.setHorizontalAlignment(SwingConstants.CENTER);
+
         cons_input1.ipady = 0;
         cons_input1.gridwidth = 1;
         cons_input1.fill = GridBagConstraints.HORIZONTAL;
         cons_input1.weightx = 0.5;
         cons_input1.gridx = 1;
         cons_input1.gridy = 1;
-        input1.setToolTipText("Enter A");
-        input1.setHorizontalAlignment(SwingConstants.CENTER);
 
         JTextField input2 = new JTextField();
-        cons_input2.fill = GridBagConstraints.HORIZONTAL;
-        cons_input2.weightx = 0.5;
-        cons_input1.gridwidth = 1;
-        cons_input2.gridx = 2;
-        cons_input2.gridy = 1;
         input2.setToolTipText("Enter B");
         input2.setHorizontalAlignment(SwingConstants.CENTER);
+        cons_input2.fill = GridBagConstraints.HORIZONTAL;
+        cons_input2.weightx = 0.5;
+        cons_input2.gridwidth = 1;
+        cons_input2.gridx = 2;
+        cons_input2.gridy = 1;
 
         JTextField input3 = new JTextField();
         cons_input3.fill = GridBagConstraints.HORIZONTAL;
         cons_input3.weightx = 0.5;
-        cons_input1.gridwidth = 1;
+        cons_input3.gridwidth = 1;
         cons_input3.gridx = 3;
         cons_input3.gridy = 1;
         input3.setToolTipText("Enter C");
@@ -120,7 +120,7 @@ class MyPanel extends JPanel {
                 String labelText = solve(input1.getText(), input2.getText(), input3.getText());
                 label.setText(labelText);
 
-                if(labelText == "Not a quadratic equation!"){
+                if(labelText.equals("Not a quadratic equation!") || labelText.equals("Number format error!")){
                     label.setOpaque(true);
                     label.setBackground(Color.RED);
                     System.out.println("true");
