@@ -21,19 +21,15 @@ class Main {
     {
         JFrame jf = new JFrame();
         jf.setPreferredSize(new Dimension(250, 300));
-        jf.setTitle((LocalDate.now().toString()));
-        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jf.setLocation(50,50);
-        jf.setResizable(true);
         MyPanel p = new MyPanel();
 
-        JList lista = new JList(new DayModel());
-        JScrollPane scroll = new JScrollPane(lista);
+        JList list = new JList(new CustomModel());
+        JScrollPane scroll = new JScrollPane(list);
         jf.add(scroll);
-
+        jf.setVisible(true);
         jf.pack();
 
-        jf.setVisible(true);
     }
 }
 
@@ -51,9 +47,8 @@ class MyPanel extends JPanel {
     }
 }
 
-class DayModel implements ListModel<String>
+class CustomModel implements ListModel<String>
 {
-
     public int getSize() {
         return (YearMonth.of(LocalDate.now().getYear(), LocalDate.now().getMonth())).lengthOfMonth();
     }
@@ -62,11 +57,7 @@ class DayModel implements ListModel<String>
         return (index+1) + " - " + LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), index+1).getDayOfWeek().getDisplayName(TextStyle.FULL, new Locale("PL"));
     }
 
-    public void addListDataListener(ListDataListener l) {
+    public void addListDataListener(ListDataListener listener) {}
 
-    }
-
-    public void removeListDataListener(ListDataListener l) {
-
-    }
+    public void removeListDataListener(ListDataListener listener) {}
 }
