@@ -50,7 +50,8 @@ class MyPanel extends JPanel {
 class CustomModel implements ListModel<String>
 {
     public int getSize() {
-        return (YearMonth.of(LocalDate.now().getYear(), LocalDate.now().getMonth())).lengthOfMonth();
+        YearMonth currentMonthDays = YearMonth.of(LocalDate.now().getYear(), LocalDate.now().getMonth());
+        return currentMonthDays.lengthOfMonth();
     }
 
     public String getElementAt(int index) {
