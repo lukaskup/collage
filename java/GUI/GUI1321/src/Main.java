@@ -30,67 +30,68 @@ class Main {
 
         jf.setLayout(new BorderLayout());
 
-        model mod = new model();
-        jf.setTitle("Capitals");
-        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jf.setLocation(1000, 400);
-        jf.setSize(new Dimension(400, 400));
+        Model model = new Model();
+        jf.setLocation(50, 50);
+        jf.setSize(new Dimension(250, 300));
 
-        JList lista = new JList(mod);
-        JTextField pole = new JTextField();
-        pole.setSize(new Dimension(400, 30));
-        jf.add(pole, BorderLayout.PAGE_START);
-        jf.add(new JScrollPane(lista), BorderLayout.CENTER);
+        JList capitals = new JList(model);
+        JTextField input = new JTextField();
+        input.setSize(new Dimension(250, 30));
+        jf.add(input, BorderLayout.PAGE_START);
+        jf.add(new JScrollPane(capitals), BorderLayout.CENTER);
         jf.setVisible(true);
 
-
-        lista.addMouseListener(
+        capitals.addMouseListener(
                 new MouseAdapter() {
-
                     public void mouseClicked(MouseEvent e) {
                         super.mouseClicked(e);
-                        if (e.getClickCount() == 2)
-                            mod.delete_element(lista.locationToIndex(e.getPoint()));
+                        System.out.println(model.getElementAt(capitals.locationToIndex(e.getPoint())));
+                        if (e.getClickCount() == 2) {
+                            model.delete(capitals.locationToIndex(e.getPoint()));
+                        }
                     }
                 }
         );
 
-
-        pole.addActionListener(
-                (ActionEvent e) ->
-                {
-                    mod.add_element(pole.getText());
-                    pole.setText("");
+        input.addActionListener(
+                (ActionEvent e) -> {
+                    String value = input.getText();
+                    System.out.println(capitals.getNextMatch(value, 0, javax.swing.text.Position.Bias.Forward));
+                    if(capitals.getNextMatch(value, 0, javax.swing.text.Position.Bias.Forward) == -1){
+                        model.add(value);
+                        input.setText("");
+                    }else{
+                        input.setText("value already exists!");
+                    }
 
                 }
         );
     }
 }
 
-class model extends AbstractListModel<String>
+class Model extends AbstractListModel<String>
 {
 
-    public ArrayList<String> lista = new ArrayList<>();
+    public ArrayList<String> list = new ArrayList<>();
 
-    public void add_element(String s)
-    {
-        lista.add(s);
-        fireContentsChanged(this, 0, lista.size());
-        lista.sort(String::compareTo);
+    public void add(String s){
+        list.add(s);
+        fireContentsChanged(this, 0, list.size());
+        list.sort(String::compareTo);
     }
 
     public int getSize() {
-        return lista.size();
+        return list.size();
     }
 
     public String getElementAt(int index) {
-        return lista.get(index);
+        return list.get(index);
     }
 
-    public void delete_element(int s)
+    public void delete(int s)
     {
-        lista.remove(s);
-        fireContentsChanged(this, 0, lista.size());
-        lista.sort(String::compareTo);
+        list.remove(s);
+        fireContentsChanged(this, 0, list.size());
+        list.sort(String::compareTo);
     }
 }
